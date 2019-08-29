@@ -4,6 +4,7 @@ const keys = require('../config/keys');
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const Event = require('../models/Event');
+const { launchPuppeteer } = require('../util/puppeteer');
 
 /**
  * This is the client ID and client secret provided by GitHub
@@ -109,5 +110,9 @@ module.exports = app => {
                 });
             });
         });
+    });
+
+    app.get('/test', (req, res) => {
+        launchPuppeteer();
     });
 };
