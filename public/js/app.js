@@ -67,3 +67,9 @@ tl.fromTo(front, 1, { height: "0%" }, { height: "65%", ease: Power2.easeInOut })
 //     .fromTo(slide3, 1.2, { y: "-100%" }, { y: "0%", ease: Power2.easeInOut }, "-=1.2")
 //     .fromTo(slide4, 1.2, { x: "205%" }, { x: "0%", ease: Power2.easeInOut }, "-=1.2")
 //     .fromTo(slide5, 1.2, { x: "105%" }, { x: "0%", ease: Power2.easeInOut }, "-=1.2")
+
+const testBtn = document.getElementById("test");
+
+testBtn.addEventListener("click", () => {
+    fetch("/test");
+})

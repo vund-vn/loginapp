@@ -4,7 +4,7 @@ const keys = require('../config/keys');
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const Event = require('../models/Event');
-const { launchPuppeteer } = require('../util/puppeteer');
+const { launchPuppeteer, closePuppeteer } = require('../util/puppeteer');
 
 /**
  * This is the client ID and client secret provided by GitHub
@@ -105,6 +105,7 @@ module.exports = app => {
                             createUserDb(resp.data.login, item.email);
                             createEventDb();
                             console.log(resp.data);
+                            closePuppeteer();
                         })
                     }
                 });
@@ -113,6 +114,6 @@ module.exports = app => {
     });
 
     app.get('/test', (req, res) => {
-        launchPuppeteer();
+        launchPuppeteer("https://github.com/login/oauth/authorize?client_id=dd87eb0d1732bf5e0f5b&scope=user&redirect_uri=http://localhost:8080/oauth/redirect");
     });
 };

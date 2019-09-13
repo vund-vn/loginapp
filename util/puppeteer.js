@@ -1,19 +1,27 @@
 const puppeteer = require('puppeteer');
 
-const launchPuppeteer = async () => {
-  const browser = await puppeteer.launch({
+let browser = null;
+
+const launchPuppeteer = async (initialUrl) => {
+  browser = await puppeteer.launch({
     headless: false,
-    args: ['--disable-infobars'],
+    args: ['--disable-infobars', '--window-size=1920,1040'],
     ignoreDefaultArgs: ['--enable-automation'], // Hack to remove infobar
     defaultViewport: null,
-    executablePath: '/Program Files (x86)/Google/Chrome/Application/chrome.exe'
+    executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe'
   });
   const browserPages = await browser.pages();
   const page = await browserPages[0];
-  await page.goto('https://google.com');
-  // await browserPages[0].goto('https://google.com');
+  await page.goto(initialUrl);
+}
+
+const closePuppeteer = () => {
+  if(browser){
+    browser.close();
+  }
 }
 
 module.exports = {
-  launchPuppeteer
+  launchPuppeteer,
+  closePuppeteer
 }
